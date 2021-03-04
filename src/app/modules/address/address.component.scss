@@ -1,0 +1,24 @@
+.example-card {
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+  margin-top: 15vh;
+  width: 78vw;
+  margin-left: 10vw;
+}
+
+.example-container {
+  display: inline-grid;
+  padding-left: 22vw;
+}
+mat-form-field {
+  width: 35vw;
+}
+
+.header {
+  line-height: 50px !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+}
+
+.example-header-image {
+  background-size: cover;
+}

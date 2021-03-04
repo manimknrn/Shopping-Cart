@@ -1,0 +1,96 @@
+<app-header></app-header>
+<mat-card class="example-card">
+  <mat-card-header class="header">
+    <div mat-card-avatar class="example-header-image">
+      <mat-icon>location_city</mat-icon>
+    </div>
+    <mat-card-title>
+      Delivery Address
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content >
+    <form class="example-container" [formGroup]="userAddressValidations">
+      <p style="color:red">* Please fill the required fields to order your items.</p>
+      <mat-form-field appearance="fill">
+        <mat-label>Country/Region</mat-label>
+        <mat-select formControlName="country" required>
+          <mat-option *ngFor="let name of names" value="{{name.name}}">{{name.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="userAddressValidations.get('country')">
+          Country is Mandatory!
+        </mat-error>
+        <mat-hint align="end">Here's the dropdown arrow ^</mat-hint>
+      </mat-form-field>
+      <mat-form-field hintLabel="Max 10 characters" appearance="fill">
+        <mat-label>Full name (First and Last name)</mat-label>
+        <input matInput #nameInput maxlength="10" placeholder="Ex. Einstein" formControlName="fullName" required>
+        <mat-error *ngIf="userAddressValidations.get('fullName')">
+          Name should be atleast 4 characters long!
+        </mat-error>
+        <mat-hint align="end">{{nameInput.value?.length || 0}}/10</mat-hint>
+      </mat-form-field>
+      <mat-form-field hintLabel="Max 10 numbers" appearance="fill">
+        <mat-label>Mobile number</mat-label>
+        <input matInput #numberInput maxlength="10" placeholder="Ex. 8888899999" formControlName="mobile" required>
+        <mat-hint align="end">{{numberInput.value?.length || 0}}/10</mat-hint>
+        <mat-icon matSuffix>phone</mat-icon>
+        <mat-error *ngIf="userAddressValidations.get('mobile')">
+          Mobile number is Mandatory & should have only digits!
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field hintLabel="Max 6 digits" appearance="fill">
+        <mat-label>Pin code</mat-label>
+        <input matInput #pinInput maxlength="6" placeholder="Ex. 600001" formControlName="pinCode" required>
+        <mat-error *ngIf="userAddressValidations.get('pinCode')">
+          Field is Mandatory & should have only digits!
+        </mat-error>
+        <mat-hint align="end">{{pinInput.value?.length || 0}}/6</mat-hint>
+      </mat-form-field>
+      <mat-form-field hintLabel="Max 15 characters" appearance="fill">
+        <mat-label>Flat, House no., Building, Company, Apartment</mat-label>
+        <input matInput #addr1Input maxlength="15" placeholder="Ex. S3, LIC Office">
+        <mat-hint align="end">{{addr1Input.value?.length || 0}}/15</mat-hint>
+      </mat-form-field>
+      <mat-form-field hintLabel="Max 15 characters" appearance="fill">
+        <mat-label>Area, Colony, Street, Sector, Village</mat-label>
+        <input matInput #addr2Input maxlength="15" placeholder="Ex. MGR Street" formControlName="address" required>
+        <mat-error *ngIf="userAddressValidations.get('address')">
+          Field is Mandatory & should be atleast 5 characters long!
+        </mat-error>
+        <mat-hint align="end">{{addr2Input.value?.length || 0}}/15</mat-hint>
+      </mat-form-field>
+      <mat-form-field hintLabel="Max 10 characters" appearance="fill">
+        <mat-label>Landmark</mat-label>
+        <input matInput #addr3Input maxlength="10" placeholder="Ex. Effiel tower">
+        <mat-hint align="end">{{addr3Input.value?.length || 0}}/10</mat-hint>
+      </mat-form-field>
+      <mat-form-field hintLabel="Max 10 characters" appearance="fill">
+        <mat-label>Town/City</mat-label>
+        <input matInput #addr4Input maxlength="10" placeholder="Ex. Chennai" formControlName="town" required>
+        <mat-error *ngIf="userAddressValidations.get('town')">
+          Field is Mandatory & should be atleast 4 characters long!
+        </mat-error>
+        <mat-hint align="end">{{addr4Input.value?.length || 0}}/10</mat-hint>
+      </mat-form-field>
+      <mat-form-field hintLabel="Max 10 characters" appearance="fill">
+        <mat-label>State</mat-label>
+        <input matInput #stateInput maxlength="10" placeholder="Ex. Tamilnadu" formControlName="state" required>
+        <mat-error *ngIf="userAddressValidations.get('state')">
+          Field is Mandatory & should be atleast 2 characters long!
+        </mat-error>
+        <mat-hint align="end">{{stateInput.value?.length || 0}}/10</mat-hint>
+      </mat-form-field>
+      <br />
+      <p>
+        <span style="font-size: 18px; font-weight: bold;">Add delivery instructions </span> <br /><br />
+        <span>Preferences are used to plan your delivery. <br />However, shipments can sometimes arrive early or later
+          than planned.</span>
+      </p>
+    </form>
+  </mat-card-content>
+  <mat-card-actions style="text-align: center;">
+    <button mat-button *ngIf="userAddressValidations.valid" style="font-size: 19px; color: brown;" (click)="proceedPayment(userAddressValidations)">Proceed Payment</button>
+  </mat-card-actions>
+</mat-card>

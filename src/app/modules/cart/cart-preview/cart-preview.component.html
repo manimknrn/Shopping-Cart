@@ -1,0 +1,27 @@
+<app-header></app-header>
+<mat-card class="example-card">
+    <mat-card-content >
+        <div id="content">
+            <div id="left">
+                <div>
+                    <img title="Click to preview" class="imgcss" id="main" src="{{previewValues.image_url}}"
+                        alt="Shopping images">
+                </div>
+            </div>
+
+            <div id="right">
+                <h5 class="heading">{{previewValues.name}}</h5> <br />
+                <span style="font-size: 16px;">Price: {{previewValues.price | currency }}</span>
+                <br /> <br />
+                <span class="qty">Qty:</span>
+                <input type="number" min="1" max="100" step="1" matInput class="quantity"
+                    [(ngModel)]="quant"> <br /><br />
+                <button type="button" (click)="onAddToCart(previewValues, quant)" class="button">Add to
+                    cart</button>
+            </div>
+        </div>
+        <ng-template #loadingMessage>
+            <div>Loading products...</div>
+        </ng-template>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,84 @@
+<script type="text/javascript">
+    window.onunload = () => { window.history.forward(); return "Your Order will be lost." }; 
+</script>
+<mat-card class="example-card">
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image">
+            <mat-icon>payment</mat-icon>
+        </div>
+        <mat-card-title class="title">
+            Select a payment method
+        </mat-card-title>
+    </mat-card-header>
+    <p class="deliver">
+        <mat-icon>location_on</mat-icon><strong>Deliver to</strong> {{address}}
+    </p>
+    <mat-card-content>
+        <form [formGroup]="paymentValidation">
+            <label id="example-radio-group-label">Pick your payment option</label>
+            <div class="example-radio-group">
+                <mat-radio-button class="example-radio-button" (change)="cardPayment()">
+                    Debit/Credit/ATM Card
+                </mat-radio-button>
+                <div *ngIf="isOneVisible" class="display-position">
+                    <img class="img" src="./assets/card-type.png" alt="Card images">
+                    <br />
+                    <div>
+                        <mat-form-field class="form-field" hintLabel="Max 20 characters" appearance="fill">
+                            <mat-label>Name on Card</mat-label>
+                            <input matInput #cardName maxlength="20" placeholder="Ex. Johnson"
+                                formControlName="cardName" required>
+                            <mat-hint align="end">{{cardName.value?.length || 0}}/20</mat-hint>
+                            <mat-error *ngIf="paymentValidation.get('cardName')">
+                                Name should be atleast 4 and max 20 characters long!
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="form-field" hintLabel="Must have 16 digits" appearance="fill">
+                            <mat-label>Card Number</mat-label>
+                            <input matInput #cardNumber placeholder="Ex. 1234987612349876"
+                                formControlName="cardNumber" required
+                                (keyup)="creditCardNumberSpacing()">
+                            <!-- <mat-hint align="end">{{cardNumber.value?.length || 0}}/16</mat-hint> -->
+                            <mat-error *ngIf="paymentValidation.get('cardNumber')">
+                                Card Number must have 16 digits!
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field hintLabel="Must have 4 digits" appearance="fill">
+                            <mat-label>Expiry date (mmyy)</mat-label>
+                            <input matInput #expiryDate maxlength="4" placeholder="Ex. 0011"
+                                formControlName="expiryDate" required>
+                            <mat-hint align="end">{{expiryDate.value?.length || 0}}/4</mat-hint>
+                            <mat-error *ngIf="paymentValidation.get('expiryDate')">
+                                Expiry date must have 4 digits and mmyy format!
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div>
+                    <mat-radio-button class="example-radio-button" (change)="upiPayment()"> Other
+                        UPI Apps
+                    </mat-radio-button>
+                    <div *ngIf="isTwoVisible" class="display-position">
+                        <mat-form-field hintLabel="Must have correct detail" appearance="fill">
+                            <mat-label>Please enter your UPI ID</mat-label>
+                            <input matInput #upi maxlength="15" placeholder="Ex. MobileNumber@upi" formControlName="upi"
+                                required>
+                            <mat-hint align="end">{{upi.value?.length || 0}}/30</mat-hint>
+                            <mat-error *ngIf="paymentValidation.get('upi')">
+                                Make sure your UPI address is correct!
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <mat-radio-button class="example-radio-button" (change)="codPayment()"> Pay on
+                    Delivery
+                </mat-radio-button>
+            </div>
+        </form>
+    </mat-card-content>
+    <mat-card-actions style="text-align: center;">
+        <mat-spinner style="margin: 0 auto;" mode="indeterminate" *ngIf="spinner"></mat-spinner>
+        <button mat-button class="button" *ngIf="paymentValidation.valid" (click)="placeOrder()">Place your
+            order</button>
+    </mat-card-actions>
+</mat-card>

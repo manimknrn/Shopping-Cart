@@ -1,0 +1,56 @@
+.example-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+.example-radio-button {
+  margin: 5px;
+}
+
+.example-card {
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+  margin-top: 15vh;
+  width: 78vw;
+  margin-left: 10vw;
+  border: 2px solid darkgray;
+  height: 87%;
+}
+
+.header {
+  font-size: 20px !important;
+  font-weight: 700 !important;
+}
+
+.example-header-image {
+  background-size: cover;
+}
+
+.deliver {
+  font-size: 12px;
+  line-height: 14px;
+  height: 14px;
+  font-weight: 400;
+  float: right;
+  clear: both;
+  display: inline-grid;
+  white-space: nowrap;
+  font-family: "Helvetica", "Mier B", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+  sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;;
+}
+
+.display-position {
+  padding-left: 33px !important;
+}
+
+.img {
+  max-height: 10vh; max-width: 40vw;
+}
+
+.form-field {
+  padding-right: 20px;
+}
+
+.button {
+  font-size: 19px; color: brown;
+}

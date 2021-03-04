@@ -1,0 +1,12 @@
+<div class="container">
+    <div class="header">
+        <div class="title">
+            <a class="title-icon" [routerLink]="'../home'" routerLinkActive="active"><mat-icon title="Store Dashboard">home</mat-icon></a>
+            <span class="title-span">Shopping Store</span>
+        </div>
+        <nav class="names">
+            <a [routerLink]="'../product'" routerLinkActive="active"><mat-icon title="Product list">shop</mat-icon></a>
+            <a [routerLink]="'../cart'" routerLinkActive="active"><mat-icon matBadge={{cartCount}} title="Your purchase cart">shopping_cart</mat-icon></a>
+        </nav>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+<app-header></app-header>
+<mat-card class="example-card">
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image">
+            <mat-icon>shop_cart</mat-icon>
+        </div>
+        <mat-card-title>Product List</mat-card-title>
+    </mat-card-header>
+    <mat-card-content >
+        <div *ngIf="!(loading$ | async); else loadingMessage" class="product-list">
+            <div *ngFor="let p of (products$ | async)" class="card-product">
+                <div class="prod-list">
+                    <div #myDiv>
+                        <img title="Click to preview" class="imgcss" id="main" src="{{p.image_url}}"
+                            alt="Shopping images" (click)="preview($event)">
+                    </div>
+                    <h5>{{p.name}}</h5>
+                    <p>{{p.price | currency }}</p>
+                    <span class="qty">Qty:</span>
+                    <input type="number" min="1" max="100" step="1" matInput class="quantity" [(ngModel)]="p.quantity">
+                    <br /><br />
+                    <button type="button" (click)="onAddToCart(p)" class="button">Add to cart</button>
+                </div>
+            </div>
+        </div>
+        <ng-template #loadingMessage>
+            <div>Loading products...</div>
+        </ng-template>
+    </mat-card-content>
+</mat-card>

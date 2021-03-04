@@ -1,0 +1,75 @@
+.example-card {
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+  margin-top: 15vh;
+}
+
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 20px;
+}
+
+.card-product {
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+}
+
+.imgcss {
+  max-width: 350px;
+  max-height: 370px;
+  padding-left: 150px;
+}
+
+#left,
+#right {
+  box-sizing: border-box;
+}
+
+#left {
+  display: inline-flex;
+  width: 50%;
+}
+
+#right {
+  width: 50%;
+  padding-left: 50px;
+  border-radius: 4px;
+  position: absolute;
+  display: inline-table;
+}
+
+.heading {
+  text-rendering: optimizeLegibility;
+  font-size: 18px !important;
+  line-height: 24px !important;
+  font-weight: 700 !important;
+}
+
+.button {
+  border-color: #cba957 #bf942a #aa8326;
+  background: goldenrod;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  text-decoration: none!important;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.qty {
+  font-size: 16px !important;
+  padding: 3px;
+  font-family: "Helvetica", "Mier B", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+
+.quantity {
+  font-family: "Helvetica", "Mier B", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+  border-radius: 7px;
+  background: #F0F2F2;
+  box-shadow: 0 2px 5px rgb(15 17 17 / 15%);
+  position: relative;
+  overflow: hidden;
+  height: 21px;
+  text-align: center;
+  width: 38px;
+}
