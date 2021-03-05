@@ -3,72 +3,84 @@
         "id": 1,
         "name": "Men's Sports Jersey",
         "price": "80",
-        "image_url": "https://www.maciag-offroad.de/shop/artikelbilder/normal/112370/thor-jersey-sector-link-1.jpg"
+        "image_url": "https://www.maciag-offroad.de/shop/artikelbilder/normal/112370/thor-jersey-sector-link-1.jpg",
+        "quantity": 1
     },
     {
         "id": 2,
         "name": "Men's Causal Shirt",
         "price": "180",
-        "image_url": "https://i.pinimg.com/564x/f4/72/2c/f4722c4e388368e43c45eeb42fd78200.jpg"
+        "image_url": "https://i.pinimg.com/564x/f4/72/2c/f4722c4e388368e43c45eeb42fd78200.jpg",
+        "quantity": 1
     },
     {
         "id": 3,
         "name": "Traditional Baby boy's Dhoti kurta",
         "price": "480",
-        "image_url": "https://i.pinimg.com/originals/4c/6c/4f/4c6c4f10ac63dcf4a72b217b9acf9643.jpg"
+        "image_url": "https://i.pinimg.com/originals/4c/6c/4f/4c6c4f10ac63dcf4a72b217b9acf9643.jpg",
+        "quantity": 1
     },
     {
         "id": 4,
         "name": "New born baby Clothing Set",
         "price": "160",
-        "image_url": "https://images-na.ssl-images-amazon.com/images/I/61Euw4-00xL._SL1219_.jpg"
+        "image_url": "https://images-na.ssl-images-amazon.com/images/I/61Euw4-00xL._SL1219_.jpg",
+        "quantity": 1
     },
     {
         "id": 5,
         "name": "Girl Baby Frock",
         "price": "480",
-        "image_url": "https://images-na.ssl-images-amazon.com/images/I/61cgZB1EdFL._UL1440_.jpg"
+        "image_url": "https://images-na.ssl-images-amazon.com/images/I/61cgZB1EdFL._UL1440_.jpg",
+        "quantity": 1
     },
     {
         "id": 6,
         "name": "Kids Baby Boys Blazer",
         "price": "880",
-        "image_url": "https://images-na.ssl-images-amazon.com/images/I/71Fwc07oxPL._UY879_.jpg"
+        "image_url": "https://images-na.ssl-images-amazon.com/images/I/71Fwc07oxPL._UY879_.jpg",
+        "quantity": 1
     },
     {
         "id": 7,
         "name": "Men's Sports Jersey",
         "price": "80",
-        "image_url": "https://www.maciag-offroad.de/shop/artikelbilder/normal/112370/thor-jersey-sector-link-1.jpg"
+        "image_url": "https://www.maciag-offroad.de/shop/artikelbilder/normal/112370/thor-jersey-sector-link-1.jpg",
+        "quantity": 1
     },
     {
         "id": 8,
         "name": "Men's Causal Shirt",
         "price": "180",
-        "image_url": "https://i.pinimg.com/564x/f4/72/2c/f4722c4e388368e43c45eeb42fd78200.jpg"
+        "image_url": "https://i.pinimg.com/564x/f4/72/2c/f4722c4e388368e43c45eeb42fd78200.jpg",
+        "quantity": 1
     },
     {
         "id": 9,
         "name": "Traditional Baby boy's Dhoti kurta",
         "price": "480",
-        "image_url": "https://i.pinimg.com/originals/4c/6c/4f/4c6c4f10ac63dcf4a72b217b9acf9643.jpg"
+        "image_url": "https://i.pinimg.com/originals/4c/6c/4f/4c6c4f10ac63dcf4a72b217b9acf9643.jpg",
+        "quantity": 1
     },
     {
         "id": 10,
         "name": "New born baby Clothing Set",
         "price": "160",
-        "image_url": "https://images-na.ssl-images-amazon.com/images/I/61Euw4-00xL._SL1219_.jpg"
+        "image_url": "https://images-na.ssl-images-amazon.com/images/I/61Euw4-00xL._SL1219_.jpg",
+        "quantity": 1
     },
     {
         "id": 11,
         "name": "Girl Baby Frock",
         "price": "480",
-        "image_url": "https://images-na.ssl-images-amazon.com/images/I/61cgZB1EdFL._UL1440_.jpg"
+        "image_url": "https://images-na.ssl-images-amazon.com/images/I/61cgZB1EdFL._UL1440_.jpg",
+        "quantity": 1
     },
     {
         "id": 12,
         "name": "Kids Baby Boys Blazer",
         "price": "880",
-        "image_url": "https://images-na.ssl-images-amazon.com/images/I/71Fwc07oxPL._UY879_.jpg"
+        "image_url": "https://images-na.ssl-images-amazon.com/images/I/71Fwc07oxPL._UY879_.jpg",
+        "quantity": 1
     }
 ]

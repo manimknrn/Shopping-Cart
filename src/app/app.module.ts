@@ -39,6 +39,8 @@ import { PaymentComponent } from './modules/payment/payment.component';
 import { CartComponent } from './modules/cart/cart.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AddressService } from './modules/address/services/address.service';
+import { LoginComponent } from './modules/auth/login/login.component';
+import { NgxsResetPluginModule } from 'ngxs-reset-plugin';
 
 @NgModule({
   declarations: [
@@ -49,12 +51,14 @@ import { AddressService } from './modules/address/services/address.service';
     HeaderComponent,
     AddressComponent,
     CartPreviewComponent,
-    PaymentComponent
+    PaymentComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgxsModule.forRoot(ShopState),
+    NgxsResetPluginModule.forRoot(),
     BrowserAnimationsModule,
     MatCardModule,
     HttpClientModule,

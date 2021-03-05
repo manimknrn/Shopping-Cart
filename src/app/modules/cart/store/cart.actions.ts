@@ -3,12 +3,16 @@ import { Product } from "../../product/models/product.model";
 export class AddProductToCart {
   static type = "[Products] Add To Cart";
   constructor(public readonly payload: Product["id"], public readonly qty: number) {
+    console.log('payload :: ', payload + ' '+ 'qty :: ', qty);
     
   }
 }
 
-export class LoadCartItems {
-  static type = "[Cart] Load Cart Items";
+export class UpdateCartItems {
+  static type = "[Cart] Update Cart Items";
+  constructor(public readonly payload: Product["id"], public readonly qty: number) {
+    
+  }
 }
 
 export class RemoveCartItems {
@@ -18,4 +22,4 @@ export class RemoveCartItems {
   }
 }
 
-export type CartActions = AddProductToCart | LoadCartItems | RemoveCartItems;
+export type CartActions = AddProductToCart | UpdateCartItems | RemoveCartItems;

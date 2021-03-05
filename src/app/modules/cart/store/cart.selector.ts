@@ -23,6 +23,7 @@ export class CartSelector {
     // Cart total
     @Selector([ProductState])
     static cartTotal(state: CartStateModel, productState: ProductStateModel) {
+        console.log('state :: ', state + '  ' + 'productState :: ', productState);
         const { cartItems } = state;
         const products = productState.products;
         return joinItems(cartItems, products).reduce(

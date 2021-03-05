@@ -2,6 +2,8 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngxs/store';
+import { StateResetAll } from 'ngxs-reset-plugin';
 import { CrossErrorStateMatcher } from '../address/address.component';
 
 @Component({
@@ -20,7 +22,7 @@ export class PaymentComponent implements OnInit {
   matcher = new CrossErrorStateMatcher();
   @ViewChild('cardNumber') ccNumberField!: ElementRef;
 
-  constructor(public _snackBar: MatSnackBar, public router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder) { }
+  constructor(public _snackBar: MatSnackBar, public router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder, private store: Store) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -67,6 +69,7 @@ export class PaymentComponent implements OnInit {
     this._snackBar.open('Order Successfully placed!!!', 'Thank you!', {
       duration: 4000,
     });
+    this.store.dispatch(new StateResetAll());
     setTimeout(() => {
       this.router.navigate(['../home']);
     }, 3000)

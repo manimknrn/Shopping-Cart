@@ -1,5 +1,5 @@
 import { Action, State } from "@ngxs/store";
-import { CartItem, createCartItem } from "../models/cart.model";
+import { CartItem, createCartItem, updateCartItem } from "../models/cart.model";
 import * as cartActions from "./cart.actions";
 import { Injectable } from "@angular/core";
 
@@ -16,7 +16,7 @@ export interface CartStateModel {
 
 @Injectable()
 export class CartState {
- 
+
     // deleted cart items
     @Action(cartActions.RemoveCartItems)
     removeCartItems(
@@ -37,7 +37,7 @@ export class CartState {
         { getState, patchState }: any,
         { payload, qty }: cartActions.AddProductToCart
     ) {
-        console.log('addProductToCart-----------', typeof (payload) + ' ' + typeof (qty));
+        console.log('addProductToCart-----------', payload + ' ' + qty);
 
         const cartItems = getState().cartItems;
         console.log('addProductToCart-----cartItems------', cartItems);
@@ -68,4 +68,34 @@ export class CartState {
             cartItems: [...getState().cartItems, item]
         });
     }
+
+
+    // @Action(cartActions.UpdateCartItems)
+    // updateProductToCart(
+    //     { getState, patchState }: any,
+    //     { payload, qty }: cartActions.UpdateCartItems
+    // ) {
+    //     console.log('updateProductToCart-----------', payload + ' ' + qty);
+
+    //     const cartItems = getState().cartItems;
+    //     console.log('updateProductToCart-----cartItems------', cartItems);
+
+    //     const findIndex = cartItems.findIndex((c: any) => payload === c.productId);
+    //     console.log('findIndex :: ', findIndex);
+
+    //     if (findIndex > -1) {
+    //         return patchState({
+    //             cartItems: cartItems.map((cartdata: any, index: any) => {
+    //                 console.log('cartdata :: ', cartdata);
+    //                 if (index !== findIndex) {
+    //                     return cartdata;
+    //                 }
+    //                 return {
+    //                     ...cartdata,
+    //                     quantity: cartdata.quantity + 1
+    //                 };
+    //             })
+    //         });
+    //     }
+    // }
 }

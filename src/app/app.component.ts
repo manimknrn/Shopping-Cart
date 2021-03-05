@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
-import { ProductsService } from './modules/product/services/products.service';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"]
 })
 export class AppComponent {
+  constructor(
+  ) {}
+
 }

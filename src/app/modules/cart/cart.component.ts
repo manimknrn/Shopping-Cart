@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { CartItem } from './models/cart.model';
 import { Product } from '../product/models/product.model';
 import { CartService } from './services/cart.service';
-import { RemoveCartItems } from './store/cart.actions';
+import { AddProductToCart, RemoveCartItems, UpdateCartItems } from './store/cart.actions';
 import { CartSelector } from './store/cart.selector';
 
 
@@ -28,7 +28,7 @@ export class CartComponent implements OnInit {
 
   @Select(CartSelector.cartTotal) total$?: Observable<number>;
 
-  product$?: Observable<Product>;
+  // product$?: Observable<Product>;
 
   constructor(private store: Store, private router: Router, private route: ActivatedRoute, readonly cartService: CartService) {
     this.ELEMENT_DATA = [];
@@ -53,14 +53,23 @@ export class CartComponent implements OnInit {
     this.store.dispatch(new RemoveCartItems(productId));
   }
 
-  totalChange() {
+  totalChange(id: Product["id"], qty: number) {
+
+    console.log('id :: ', id + ' ' + 'qty :: ', qty);
+    
     this.totalPrice = this.dataSource.reduce((a: any, b: any) => {
      return a + b.total
     }, 0);
+
+    // this.store.dispatch(new UpdateCartItems(Number(id), qty));
   }
 
   selectedRow(row: any) {
     this.router.navigate(['../cartPreview'], { queryParams: row, skipLocationChange: true  });
   }
 
+  click(e: any) {
+    console.log('e :: ', e.onkeyup);
+    
+  }
 }

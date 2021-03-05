@@ -23,7 +23,7 @@ export class ProductComponent implements OnInit {
   @Select((state: any) => state.productState.loading)
   loading$?: Observable<boolean>;
 
-  product$?: Observable<Product>;
+  // product$?: Observable<Product>;
 
   constructor(private store: Store, private _snackBar: MatSnackBar) {
   }
@@ -31,11 +31,11 @@ export class ProductComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(new LoadProducts());
 
-    this.product$ = this.store.select(ProductSelector.selectedProduct);
+    // this.product$ = this.store.select(ProductSelector.selectedProduct);
   }
 
   onAddToCart({ id, quantity }: Product): void {
-    console.log('id : ', typeof(id) + ' ' + 'qty: ', typeof(quantity));
+    console.log('id : ', id + ' ' + 'qty: ', quantity);
 
     this._snackBar.open('Item added to Cart', 'Close', {
       duration: 2000,

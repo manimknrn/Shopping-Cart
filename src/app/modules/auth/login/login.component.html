@@ -1,0 +1,30 @@
+<mat-card class="example-card">
+  <mat-card-header class="header">
+    <mat-card-title>
+      Sign-In
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form class="example-container" [formGroup]="loginValidation">
+      <mat-form-field appearance="fill">
+        <mat-label>Email address</mat-label>
+        <input matInput #nameInput placeholder="Ex. einstein@abc.com" formControlName="email" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" required>
+        <mat-error *ngIf="loginValidation.get('email')">
+          Field must have valid email!
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput #namePwd type="password" placeholder="Ex. your password" formControlName="password" required>
+        <mat-error *ngIf="loginValidation.get('password')">
+          Field must have valid password!
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+  <mat-card-actions style="text-align: center;">
+    <button mat-button *ngIf="loginValidation.valid" style="font-size: 19px; color: brown;" (click)="submit()">Sign-In</button>
+  </mat-card-actions>
+</mat-card>

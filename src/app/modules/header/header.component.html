@@ -1,12 +1,29 @@
 <div class="container">
     <div class="header">
         <div class="title">
-            <a class="title-icon" [routerLink]="'../home'" routerLinkActive="active"><mat-icon title="Store Dashboard">home</mat-icon></a>
+            <a class="title-icon" [routerLink]="'../home'" routerLinkActive="active">
+                <mat-icon title="Store Dashboard">home</mat-icon>
+            </a>
             <span class="title-span">Shopping Store</span>
         </div>
         <nav class="names">
-            <a [routerLink]="'../product'" routerLinkActive="active"><mat-icon title="Product list">shop</mat-icon></a>
-            <a [routerLink]="'../cart'" routerLinkActive="active"><mat-icon matBadge={{cartCount}} title="Your purchase cart">shopping_cart</mat-icon></a>
+            <a [routerLink]="'../product'" routerLinkActive="active">
+                <mat-icon title="Product list">shop</mat-icon>
+            </a>
+            <a [routerLink]="'../cart'" routerLinkActive="active">
+                <mat-icon matBadge={{cartCount}} title="Your purchase cart">shopping_cart</mat-icon>
+            </a>
+            <!-- <a class="nav-link active">Log Out</a> -->
         </nav>
+        <nav class="names" *ngIf="(isLoggedIn$ | async); else login" (click)="onLogout()">
+            <a class="nav-link active"><mat-icon title="Log out">logout</mat-icon></a>
+        </nav>
+        <ng-template #login>
+            <nav class="names">
+                <a class="nav-link active" [routerLink]="'/login'">
+                    <mat-icon title="Log in">login</mat-icon>
+                </a>
+            </nav>
+        </ng-template>
     </div>
 </div>

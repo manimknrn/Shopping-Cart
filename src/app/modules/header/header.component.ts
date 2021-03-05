@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Select } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { CartItem } from '../cart/models/cart.model';
 import { Product } from '../product/models/product.model';
-import { CartState } from '../cart/store/cart.state';
 import { CartSelector } from '../cart/store/cart.selector';
+import { AuthService } from '../auth/state/auth.service';
+import { AuthQuery } from '../auth/state/auth.query';
+import { Router } from '@angular/router';
+import { StateResetAll } from 'ngxs-reset-plugin';
 
 @Component({
   selector: 'app-header',
@@ -13,10 +16,16 @@ import { CartSelector } from '../cart/store/cart.selector';
 })
 export class HeaderComponent implements OnInit {
 
+  isLoggedIn$ = this.authQuery.isLoggedIn$;
+  isLoggedIn!: boolean;
+
   @Select(CartSelector.cartItems) cart$?: Observable<(CartItem & Product)[]>;
   public cartCount: number = 0;
 
-  constructor() {
+  constructor(private authQuery: AuthQuery,
+    private authService: AuthService,
+    private router: Router,
+    private store: Store) {
     this.cart$?.subscribe(res => {
       if (res) {
 
@@ -28,6 +37,12 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  onLogout() {
+    this.store.dispatch(new StateResetAll());
+    this.authService.logout();
+    this.router.navigate(["login"]);
   }
 
 }
