@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Creds, User } from './auth.model';
+import { Creds, User } from '../model/auth.model';
 import { timer } from 'rxjs';
 import { mapTo } from 'rxjs/operators';
 

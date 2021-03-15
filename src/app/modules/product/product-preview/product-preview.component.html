@@ -1,6 +1,6 @@
 <app-header></app-header>
-<mat-card class="example-card">
-    <mat-card-content >
+<mat-card class="example-card" *ngIf=previewValues>
+    <mat-card-content>
         <div id="content">
             <div id="left">
                 <div>
@@ -11,13 +11,13 @@
 
             <div id="right">
                 <h5 class="heading">{{previewValues.name}}</h5> <br />
-                <span style="font-size: 16px;">Price: {{previewValues.price | currency }}</span>
+                <span style="font-size: 16px; font-weight: 700;">Price: {{previewValues.price | currency }}</span>
                 <br /> <br />
                 <span class="qty">Qty:</span>
-                <input type="number" min="1" max="100" step="1" matInput class="quantity"
-                    [(ngModel)]="quant"> <br /><br />
-                <button type="button" (click)="onAddToCart(previewValues, quant)" class="button">Add to
-                    cart</button>
+                <button (click)="decrement(previewValues.id, previewValues.quantity)">-</button>
+                <input type="text" min="0" max="100" step="1" matInput class="quantity"
+                    [(ngModel)]="quantity"> 
+                    <button (click)="increment(previewValues.id, previewValues.quantity)">+</button><br /><br />
             </div>
         </div>
         <ng-template #loadingMessage>

@@ -1,11 +1,12 @@
 import { State, Action } from "@ngxs/store";
-import { Product } from "../models/product.model";
-import { ProductsService } from "../services/products.service";
-import * as productActions from "./product.actions";
+import { Product } from "../../modules/product/models/product.model";
+import { ProductsService } from "../../modules/product/services/products.service";
+import * as productActions from "../actions/product.actions";
 import { tap } from "rxjs/operators";
 import { Injectable } from "@angular/core";
 
 export interface ProductStateModel {
+  [x: string]: any;
   products: Product[];
   loaded: boolean;
   loading: boolean;

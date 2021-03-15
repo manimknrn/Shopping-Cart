@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Selector, State } from "@ngxs/store";
-import { CartStateModel } from "./cart.state";
-import { ProductState, ProductStateModel } from "../../product/store/product.state";
+import { CartStateModel } from "../states/cart.state";
+import { ProductState, ProductStateModel } from "../states/product.state";
 
 @State<CartStateModel>({
     name: "cart",
@@ -23,11 +23,20 @@ export class CartSelector {
     // Cart total
     @Selector([ProductState])
     static cartTotal(state: CartStateModel, productState: ProductStateModel) {
-        console.log('state :: ', state + '  ' + 'productState :: ', productState);
         const { cartItems } = state;
         const products = productState.products;
         return joinItems(cartItems, products).reduce(
             (total: any, item: any) => total + item.total,
+            0
+        );
+    }
+
+    // cart quantity for cart badge
+    @Selector([ProductState])
+    static cartQuantity(state: CartStateModel) {
+        const { cartItems } = state;
+        return cartItems.reduce(
+            (a: any, b: any) => a + b.quantity,
             0
         );
     }

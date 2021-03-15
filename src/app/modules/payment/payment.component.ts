@@ -1,10 +1,12 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngxs/store';
-import { StateResetAll } from 'ngxs-reset-plugin';
+
 import { CrossErrorStateMatcher } from '../address/address.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { PaymentService } from './services/payment.services';
+import { StateResetAll } from 'ngxs-reset-plugin';
+import { Store } from '@ngxs/store';
 
 @Component({
   selector: 'app-payment',
@@ -22,7 +24,7 @@ export class PaymentComponent implements OnInit {
   matcher = new CrossErrorStateMatcher();
   @ViewChild('cardNumber') ccNumberField!: ElementRef;
 
-  constructor(public _snackBar: MatSnackBar, public router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder, private store: Store) { }
+  constructor(public _snackBar: MatSnackBar, public router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder, private store: Store, readonly paymentService: PaymentService) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -36,7 +38,7 @@ export class PaymentComponent implements OnInit {
 
   // Credit card payment method
   cardPayment() {
-    this.isOneVisible = true; 
+    this.isOneVisible = true;
     this.isTwoVisible = false;
     this.paymentValidation = this.formBuilder.group({
       cardName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(20), Validators.pattern('[a-zA-Z]+')]],
@@ -47,7 +49,7 @@ export class PaymentComponent implements OnInit {
 
   // UPI payment method
   upiPayment() {
-    this.isOneVisible = false; 
+    this.isOneVisible = false;
     this.isTwoVisible = true
     this.paymentValidation = this.formBuilder.group({
       upi: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(30)]]
@@ -56,7 +58,7 @@ export class PaymentComponent implements OnInit {
 
   // Cash on Delivery
   codPayment() {
-    this.isOneVisible = false; 
+    this.isOneVisible = false;
     this.isTwoVisible = false;
     this.paymentValidation = this.formBuilder.group({
       cod: ['']
@@ -67,9 +69,10 @@ export class PaymentComponent implements OnInit {
   placeOrder() {
     this.spinner = true;
     this._snackBar.open('Order Successfully placed!!!', 'Thank you!', {
-      duration: 4000,
+      duration: 4000
     });
-    this.store.dispatch(new StateResetAll());
+    // this.store.dispatch(new StateResetAll());
+    this.paymentService.orderPlaced$.next(true);
     setTimeout(() => {
       this.router.navigate(['../home']);
     }, 3000)
@@ -87,10 +90,10 @@ export class PaymentComponent implements OnInit {
       trimmedCardNum = trimmedCardNum.substr(0, 16);
     }
 
-     /* Handle American Express 4-6-5 spacing */
-    const partitions = trimmedCardNum.startsWith('34') || trimmedCardNum.startsWith('37') 
-                       ? [4,6,5] 
-                       : [4,4,4,4];
+    /* Handle American Express 4-6-5 spacing */
+    const partitions = trimmedCardNum.startsWith('34') || trimmedCardNum.startsWith('37')
+      ? [4, 6, 5]
+      : [4, 4, 4, 4];
 
     const numbers: any = [];
     let position = 0;

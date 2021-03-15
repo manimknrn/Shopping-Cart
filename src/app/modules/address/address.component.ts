@@ -1,8 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { AddressService } from './services/address.service';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { Select, Store } from '@ngxs/store';
+
+import { AddAddress } from 'src/app/store/actions/address.actions';
+import { AddressService } from './services/address.service';
+import { CartItem } from '../cart/models/cart.model';
+import { CartSelector } from 'src/app/store/actions';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Product } from '../product/models/product.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-address',
@@ -13,8 +20,10 @@ export class AddressComponent implements OnInit {
   public names: any;
   userAddressValidations!: FormGroup;
   matcher = new CrossErrorStateMatcher();
-
-  constructor(private addressService: AddressService, private formBuilder: FormBuilder, private router: Router) {
+  @Select(CartSelector.cartItems) cart$?: Observable<(CartItem & Product)[]>;
+  
+  @Select(CartSelector.cartTotal) total$?: Observable<number>;
+  constructor(private addressService: AddressService, private formBuilder: FormBuilder, private router: Router, private store: Store) {
   }
 
   ngOnInit(): void {
@@ -35,6 +44,7 @@ export class AddressComponent implements OnInit {
   }
 
   proceedPayment(row: any) {
+    this.store.dispatch(new AddAddress(row));
     this.router.navigate(['../payment'], { queryParams: row.value });
   }
 }

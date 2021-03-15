@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { AuthStore } from "./auth.store";
+import { AuthStore } from "../../../store/auth.store";
 import { Query, toBoolean } from "@datorama/akita";
 import { User } from "./auth.model";
 

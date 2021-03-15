@@ -1,5 +1,5 @@
 import { Router } from "@angular/router";
-import { AuthQuery } from "./state/auth.query";
+import { AuthQuery } from "./auth.query";
 import { Injectable } from "@angular/core";
 
 @Injectable({

@@ -5,9 +5,10 @@ import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { AddressComponent } from './modules/address/address.component';
 import { ProductComponent } from './modules/product/product.component';
 import { PaymentComponent } from './modules/payment/payment.component';
-import { CartPreviewComponent } from './modules/cart/cart-preview/cart-preview.component';
+import { ProductPreviewComponent } from './modules/product/product-preview/product-preview.component';
 import { LoginComponent } from './modules/auth/login/login.component';
-import { AuthGuard } from './modules/auth/auth.guard';
+import { AuthGuard } from './modules/auth/model/auth.guard';
+import { OrderComponent } from './modules/order/order.component';
 
 const routes: Routes = [
   { path: 'cart', component: CartComponent },
@@ -16,8 +17,9 @@ const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'address', component: AddressComponent },
   { path: 'payment', component: PaymentComponent, canActivate: [AuthGuard] },
-  { path: 'cartPreview', component: CartPreviewComponent },
-  { path: 'login', component: LoginComponent }
+  { path: 'productPreview', component: ProductPreviewComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'orders', component: OrderComponent }
 ];
 
 @NgModule({

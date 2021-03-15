@@ -6,15 +6,6 @@
             </a>
             <span class="title-span">Shopping Store</span>
         </div>
-        <nav class="names">
-            <a [routerLink]="'../product'" routerLinkActive="active">
-                <mat-icon title="Product list">shop</mat-icon>
-            </a>
-            <a [routerLink]="'../cart'" routerLinkActive="active">
-                <mat-icon matBadge={{cartCount}} title="Your purchase cart">shopping_cart</mat-icon>
-            </a>
-            <!-- <a class="nav-link active">Log Out</a> -->
-        </nav>
         <nav class="names" *ngIf="(isLoggedIn$ | async); else login" (click)="onLogout()">
             <a class="nav-link active"><mat-icon title="Log out">logout</mat-icon></a>
         </nav>
@@ -25,5 +16,17 @@
                 </a>
             </nav>
         </ng-template>
+        <nav class="names" *ngIf="(this.paymentService.orderPlaced$ | async)">
+            <a [routerLink]="'../orders'">
+            <mat-icon title="Orders">receipt</mat-icon></a>
+        </nav>
+        <nav class="names">
+            <a [routerLink]="'../product'" routerLinkActive="active">
+                <mat-icon title="Product list">shop</mat-icon>
+            </a>
+            <a [routerLink]="'../cart'" routerLinkActive="active">
+                <mat-icon matBadge={{cartCount}} title="Your purchase cart">shopping_cart</mat-icon>
+            </a>
+        </nav>
     </div>
 </div>

@@ -3,16 +3,6 @@
   margin-top: 15vh;
 }
 
-.product-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  grid-gap: 20px;
-}
-
-.card-product {
-  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
-}
-
 .imgcss {
   max-width: 350px;
   max-height: 370px;
@@ -42,6 +32,7 @@
   font-size: 18px !important;
   line-height: 24px !important;
   font-weight: 700 !important;
+  color: cadetblue;
 }
 
 .button {

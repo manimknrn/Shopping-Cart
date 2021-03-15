@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
-import { AuthStore } from "./auth.store";
+import { AuthStore } from "../../../store/auth.store";
 import { AuthDataService } from "./auth-data.service";
-import { createEmptyUser, Creds } from "./auth.model";
+import { createEmptyUser, Creds } from "../model/auth.model";
 import { tap } from "rxjs/operators";
 
 @Injectable({

@@ -4,7 +4,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { LoginComponent } from "./login/login.component";
 import { Routes, RouterModule } from "@angular/router";
-import { AuthGuard } from "./auth.guard";
+import { AuthGuard } from "./model/auth.guard";
 
 export const ROUTES: Routes = [
   {

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { createEmptyUser, User } from "./auth.model";
+import { createEmptyUser, User } from "../modules/auth/model/auth.model";
 import { StoreConfig } from "@datorama/akita";
 import { Store } from "@datorama/akita";
 export const initialState: User = createEmptyUser();

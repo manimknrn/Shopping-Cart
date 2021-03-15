@@ -7,13 +7,13 @@ import { ProductComponent } from './modules/product/product.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductsService } from './modules/product/services/products.service';
 import { HttpClientModule } from '@angular/common/http';
-import { ShopState } from './modules/cart/store';
+import { ShopState } from './store/actions';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { HeaderComponent } from './modules/header/header.component';
 import { CartService } from './modules/cart/services/cart.service';
 import { AddressComponent } from './modules/address/address.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CartPreviewComponent } from './modules/cart/cart-preview/cart-preview.component';
+import { ProductPreviewComponent } from './modules/product/product-preview/product-preview.component';
 import { MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -41,6 +41,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AddressService } from './modules/address/services/address.service';
 import { LoginComponent } from './modules/auth/login/login.component';
 import { NgxsResetPluginModule } from 'ngxs-reset-plugin';
+import { BnNgIdleService } from 'bn-ng-idle';
+import { ConfirmDialogComponent } from './util/confirm-dialog/confirm-dialog.component';
+import { OrderComponent } from './modules/order/order.component';
+import { PaymentService } from './modules/payment/services/payment.services';
 
 @NgModule({
   declarations: [
@@ -50,9 +54,11 @@ import { NgxsResetPluginModule } from 'ngxs-reset-plugin';
     DashboardComponent,
     HeaderComponent,
     AddressComponent,
-    CartPreviewComponent,
+    ProductPreviewComponent,
     PaymentComponent,
-    LoginComponent
+    LoginComponent,
+    ConfirmDialogComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,
@@ -92,7 +98,7 @@ import { NgxsResetPluginModule } from 'ngxs-reset-plugin';
     ScrollingModule,
     MatProgressSpinnerModule
   ],
-  providers: [ProductsService, CartService, AddressService],
+  providers: [ProductsService, CartService, AddressService, BnNgIdleService, PaymentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

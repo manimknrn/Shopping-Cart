@@ -10,12 +10,12 @@
         <div *ngIf="!(loading$ | async); else loadingMessage" class="product-list">
             <div *ngFor="let p of (products$ | async)" class="card-product">
                 <div class="prod-list">
-                    <div #myDiv>
+                    <div>
                         <img title="Click to preview" class="imgcss" id="main" src="{{p.image_url}}"
-                            alt="Shopping images" (click)="preview($event)">
+                            alt="Shopping images" (click)="preview(p)">
                     </div>
-                    <h5>{{p.name}}</h5>
-                    <p>{{p.price | currency }}</p>
+                    <h5 (click)="preview(p)" class="text-css">{{p.name}}</h5>
+                    <p style="font-weight: 700;">{{p.price | currency }}</p>
                     <span class="qty">Qty:</span>
                     <input type="number" min="1" max="100" step="1" matInput class="quantity" [(ngModel)]="p.quantity">
                     <br /><br />

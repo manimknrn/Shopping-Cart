@@ -1,12 +1,14 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Product } from './models/product.model';
-import { AddProductToCart } from '../cart/store/cart.actions';
-import { LoadProducts } from './store/product.actions';
-import { ProductState } from './store/product.state';
-import { ProductSelector } from './store/product.selector';
+import { AddProductToCart } from '../../store/actions/cart.actions';
+import { LoadProducts } from '../../store/actions/product.actions';
+import { ProductSelector } from '../../store/selectors/product.selector';
+import { Router } from '@angular/router';
+import { ProductsService } from './services/products.service';
+import { CartService } from '../cart/services/cart.service';
 
 @Component({
   selector: 'app-product',
@@ -14,8 +16,6 @@ import { ProductSelector } from './store/product.selector';
   styleUrls: ['./product.component.scss']
 })
 export class ProductComponent implements OnInit {
-  // public quantity: Product["quantity"] = 0;
-  @ViewChild('myDiv') myDiv!: ElementRef;
 
   @Select(ProductSelector.products)
   products$?: Observable<Product[]>;
@@ -23,42 +23,24 @@ export class ProductComponent implements OnInit {
   @Select((state: any) => state.productState.loading)
   loading$?: Observable<boolean>;
 
-  // product$?: Observable<Product>;
-
-  constructor(private store: Store, private _snackBar: MatSnackBar) {
+  constructor(readonly cartService: CartService, private router: Router, private store: Store, private _snackBar: MatSnackBar, public productService: ProductsService) {
   }
 
   ngOnInit(): void {
     this.store.dispatch(new LoadProducts());
-
-    // this.product$ = this.store.select(ProductSelector.selectedProduct);
   }
 
   onAddToCart({ id, quantity }: Product): void {
-    console.log('id : ', id + ' ' + 'qty: ', quantity);
-
     this._snackBar.open('Item added to Cart', 'Close', {
       duration: 2000,
     });
-    this.store.dispatch(new AddProductToCart(id, quantity));
+
+    this.store.dispatch(new AddProductToCart(Number(id), Number(quantity)));
   }
 
   preview(src: any) {
-    let data = {
-      w: 500,
-      h: 500
-    }
-
-    let chk = {
-      left: Number((screen.width - data.w) / 2),
-      tops: Number((screen.height - data.h) / 2)
-    }
-
-    window.open(src.target.src, '_blank', 'height=' + data.h + ',width=' + data.w + ',top=' + chk.tops + ',left=' + chk.left);
-  }
-
-  trackByIndex(index: number, obj: any): any {
-    return index;
+    this.productService.previewItems$.next(src);
+    this.router.navigate(['../productPreview']);
   }
 
 }

@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { RouterState } from "@angular/router";
 import { Selector, State } from "@ngxs/store";
-import { Product } from "../models/product.model";
-import { ProductStateModel } from "./product.state";
+import { Product } from "../../modules/product/models/product.model";
+import { ProductState, ProductStateModel } from "../states/product.state";
 
 @State<ProductStateModel>({
     name: "productState",
@@ -16,8 +16,9 @@ import { ProductStateModel } from "./product.state";
 @Injectable()
 export class ProductSelector {
 
-    @Selector()
+    @Selector([ProductState])
     static products(state: ProductStateModel): Product[] {
+
         return state.products;
     }
 
