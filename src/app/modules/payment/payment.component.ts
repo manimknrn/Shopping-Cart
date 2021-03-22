@@ -10,6 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { PaymentService } from './services/payment.services';
 import { StateResetAll } from 'ngxs-reset-plugin';
 import { Store } from '@ngxs/store';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-payment',
@@ -26,13 +27,15 @@ export class PaymentComponent implements OnInit {
   paymentValidation!: FormGroup;
   matcher = new CrossErrorStateMatcher();
   @ViewChild('cardNumber') ccNumberField!: ElementRef;
+  public subscriptions = new Subscription();
 
   constructor(public _snackBar: MatSnackBar, public router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder, private store: Store, readonly paymentService: PaymentService) { }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.address = Object.values(params)
-    });
+    this.subscriptions.add(
+      this.route.queryParams.subscribe(params => {
+        this.address = Object.values(params)
+      }));
 
     this.paymentValidation = this.formBuilder.group({
       cod: ['', [Validators.required]]
@@ -76,7 +79,6 @@ export class PaymentComponent implements OnInit {
     });
     this.store.dispatch(new CloneOrderList(this.store.snapshot()));
     this.store.dispatch(new ResetCartItems());
-    console.log(this.store.snapshot());
     this.paymentService.orderPlaced$.next(true);
     setTimeout(() => {
       this.router.navigate(['../home']);
@@ -116,8 +118,9 @@ export class PaymentComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
+  }
 }
-function CartStateModel(CartStateModel: any) {
-  throw new Error('Function not implemented.');
-}
+
 

@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { Select, Store } from '@ngxs/store';
-import { Observable } from 'rxjs';
-import { CartItem } from '../cart/models/cart.model';
-import { Product } from '../product/models/product.model';
-import { CartSelector } from '../../store/selectors/cart.selector';
-import { AuthService } from '../auth/services/auth.service';
+
 import { AuthQuery } from '../auth/model/auth.query';
+import { AuthService } from '../auth/services/auth.service';
+import { CartItem } from '../cart/models/cart.model';
+import { CartSelector } from '../../store/selectors/cart.selector';
+import { CartService } from '../cart/services/cart.service';
+import { PaymentService } from '../payment/services/payment.services';
+import { Product } from '../product/models/product.model';
 import { Router } from '@angular/router';
 import { StateResetAll } from 'ngxs-reset-plugin';
-import { PaymentService } from '../payment/services/payment.services';
-import { CartService } from '../cart/services/cart.service';
 import { take } from 'rxjs/operators';
 
 @Component({
@@ -25,17 +26,19 @@ export class HeaderComponent implements OnInit {
   @Select(CartSelector.cartQuantity) cartQuantity$?: Observable<(CartItem)[]>;
   public cartCount!: any;
   public count: number = 0;
+  public subscriptions = new Subscription();
 
   constructor(private authQuery: AuthQuery,
     private authService: AuthService,
     private router: Router,
     private store: Store,
     public paymentService: PaymentService,
-    public cartService: CartService) {   
+    public cartService: CartService) {
 
-    this.cartQuantity$?.subscribe(res => {
-      this.cartCount = res
-    })
+    this.subscriptions.add(
+      this.cartQuantity$?.subscribe(res => {
+        this.cartCount = res
+      }));
   }
 
   ngOnInit(): void {
@@ -45,6 +48,10 @@ export class HeaderComponent implements OnInit {
     this.store.dispatch(new StateResetAll());
     this.authService.logout();
     this.router.navigate(["login"]);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 
 }

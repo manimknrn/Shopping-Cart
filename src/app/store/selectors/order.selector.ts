@@ -9,7 +9,6 @@ export class OrderSelector {
     @Selector([OrderState])
     static cartItems(state: OrderStateModel) {
         const { cartItems } = Object(state.cartItems)["cart"];
-        console.log('cartItems :: ', cartItems);
         const { products } = Object(state.cartItems).productState;
         return joinItems(cartItems, products);
     }

@@ -1,8 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
-import { Creds } from "../model/auth.model";
+
 import { AuthService } from "../services/auth.service";
+import { Creds } from "../model/auth.model";
+import { Router } from "@angular/router";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-login",
@@ -12,6 +14,7 @@ import { AuthService } from "../services/auth.service";
 export class LoginComponent implements OnInit {
   login!: FormGroup;
   loginValidation!: FormGroup;
+  public subscriptions = new Subscription();
 
   constructor(
     private fb: FormBuilder,
@@ -33,8 +36,13 @@ export class LoginComponent implements OnInit {
   }
 
   submit() {
+    this.subscriptions.add(
     this.authService.login(this.login.value as Creds).subscribe(() => {
       this.router.navigate(["/home"]);
-    });
+    }));
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 }

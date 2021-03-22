@@ -1,6 +1,7 @@
 import { AddProductToCart, RemoveCartItems } from '../../store/actions/cart.actions';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ConfirmDialogComponent, ConfirmDialogModel } from 'src/app/util/confirm-dialog/confirm-dialog.component';
+import { Observable, Subscription } from 'rxjs';
 import { Select, Store } from '@ngxs/store';
 
 import { CartItem } from './models/cart.model';
@@ -10,7 +11,6 @@ import { CartState } from 'src/app/store/states/cart.state';
 import { FinalTotal } from 'src/app/store/actions';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
 import { Product } from '../product/models/product.model';
 import { ProductsService } from '../product/services/products.service';
 
@@ -33,6 +33,7 @@ export class CartComponent implements OnInit {
   myInput!: ElementRef;
 
   public cartQuantity: any;
+  public subscriptions = new Subscription();
 
   @Select(CartSelector.cartItems) cart$?: Observable<(CartItem & Product)[]>;
 
@@ -40,37 +41,35 @@ export class CartComponent implements OnInit {
 
   constructor(public dialog: MatDialog, private store: Store, readonly cartService: CartService, readonly productsService: ProductsService, private _snackBar: MatSnackBar) {
     let cartItems: any = this.store.select(CartState);
-    console.log('snapshot :: ', this.store.snapshot());
-    
-    cartItems.subscribe((res: any) => {
-      console.log('Select CartState :: ', res.cartItems)
-      this.cartQuantity = res.cartItems
-    })
-    this.total$?.subscribe(res => {
-      this.totalPrice = res;
-      // this.store.dispatch(new FinalTotal(this.totalPrice));
-    })
+    this.subscriptions.add(
+      cartItems.subscribe((res: any) => {
+        this.cartQuantity = res.cartItems
+      }))
+    this.subscriptions.add(
+      this.total$?.subscribe(res => {
+        this.totalPrice = res;
+        // this.store.dispatch(new FinalTotal(this.totalPrice));
+      }))
     this.ELEMENT_DATA = [];
-    this.cart$?.subscribe(res => {
-      this.ELEMENT_DATA = res;
-      this.dataSource = [...this.ELEMENT_DATA]
-      this.dataSource.quantity = [...this.cartQuantity]
-      console.log('dataSoruce :: ', this.dataSource);
-    //   for (var quantity in this.dataSource) {
-    //     if (this.dataSource.hasOwnProperty(quantity)) {
-    //             this.dataSource[quantity] = this.cartQuantity[quantity];
-    //     }
-    //  }
-     console.log('for :: ', this.dataSource);
-     
-      if (res) {
-        res.find(res => {
-          if (res.name.length > 1) {
-            this.isCart = true;
-          }
+    this.subscriptions.add(
+      this.cart$?.subscribe(res => {
+        this.ELEMENT_DATA = res;
+        this.dataSource = [...this.ELEMENT_DATA]
+        this.dataSource.forEach((res: any) => {
+          this.cartQuantity.forEach((resp: any) => {
+            if (res.productId === resp.productId) {
+              return res.quantity = resp.quantity;
+            }
+          })
         })
-      }
-    })
+        if (res) {
+          res.find(res => {
+            if (res.name.length > 1) {
+              this.isCart = true;
+            }
+          })
+        }
+      }))
   }
 
   ngOnInit(): void {
@@ -83,11 +82,12 @@ export class CartComponent implements OnInit {
       maxWidth: "400px",
       data: dialogData
     });
-    dialogRef.afterClosed().subscribe(dialogResult => {
-      if (dialogResult) {
-        this.store.dispatch(new RemoveCartItems(productId));
-      }
-    });
+    this.subscriptions.add(
+      dialogRef.afterClosed().subscribe(dialogResult => {
+        if (dialogResult) {
+          this.store.dispatch(new RemoveCartItems(productId));
+        }
+      }));
   }
 
   increment(quantity: any, i: number) {
@@ -96,10 +96,11 @@ export class CartComponent implements OnInit {
     this.dataSource[i].quantity = num;
     this.coupon = 0;
     this.myInput.nativeElement.value = 0;
-    this.total$?.subscribe(res => {
-      this.totalPrice = res;
-      this.store.dispatch(new FinalTotal(this.totalPrice));
-    })
+    this.subscriptions.add(
+      this.total$?.subscribe(res => {
+        this.totalPrice = res;
+        this.store.dispatch(new FinalTotal(this.totalPrice));
+      }));
   }
 
   decrement(quantity: any, i: number) {
@@ -109,10 +110,11 @@ export class CartComponent implements OnInit {
       this.dataSource[i].quantity = num;
       this.coupon = 0;
       this.myInput.nativeElement.value = 0;
-      this.total$?.subscribe(res => {
-        this.totalPrice = res;
-        this.store.dispatch(new FinalTotal(this.totalPrice));
-      })
+      this.subscriptions.add(
+        this.total$?.subscribe(res => {
+          this.totalPrice = res;
+          this.store.dispatch(new FinalTotal(this.totalPrice));
+        }));
     }
   }
 
@@ -130,5 +132,9 @@ export class CartComponent implements OnInit {
         duration: 1000,
       });
     }
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 }

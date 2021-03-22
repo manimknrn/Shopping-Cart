@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { Observable, Subscription } from 'rxjs';
 import { Select, Store } from '@ngxs/store';
 
 import { AddAddress } from 'src/app/store/actions/address.actions';
@@ -7,7 +8,6 @@ import { AddressService } from './services/address.service';
 import { CartItem } from '../cart/models/cart.model';
 import { CartSelector } from 'src/app/store/actions';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { Observable } from 'rxjs';
 import { Product } from '../product/models/product.model';
 import { Router } from '@angular/router';
 
@@ -20,17 +20,19 @@ export class AddressComponent implements OnInit {
   public names: any;
   userAddressValidations!: FormGroup;
   matcher = new CrossErrorStateMatcher();
+  public subscriptions = new Subscription();
   @Select(CartSelector.cartItems) cart$?: Observable<(CartItem & Product)[]>;
-  
+
   @Select(CartSelector.cartTotal) total$?: Observable<number>;
   constructor(private addressService: AddressService, private formBuilder: FormBuilder, private router: Router, private store: Store) {
   }
 
   ngOnInit(): void {
-    this.addressService.getCountryList()
-      .subscribe(res => {
-        return this.names = res;
-      });
+    this.subscriptions.add(
+      this.addressService.getCountryList()
+        .subscribe(res => {
+          return this.names = res;
+        }));
 
     this.userAddressValidations = this.formBuilder.group({
       fullName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(10), Validators.pattern('[a-zA-Z]+')]],
@@ -46,6 +48,10 @@ export class AddressComponent implements OnInit {
   proceedPayment(row: any) {
     this.store.dispatch(new AddAddress(row));
     this.router.navigate(['../payment'], { queryParams: row.value });
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 }
 

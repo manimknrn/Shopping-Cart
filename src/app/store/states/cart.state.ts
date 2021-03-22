@@ -42,8 +42,6 @@ export class CartState {
         const cartItems = getState().cartItems;
         const findIndex = cartItems.findIndex((c: any) => payload === c.productId);
         if (findIndex > -1) {
-            console.log('iffffffffffffff');
-
             return patchState({
                 cartItems: cartItems.map((cartdata: any, index: any) => {
                     if (index !== findIndex) {
@@ -57,8 +55,6 @@ export class CartState {
                 })
             });
         } else {
-            console.log('elseeeeeeeeeeeeeeeeee');
-
             const item = createCartItem({
                 productId: payload
             }, {
@@ -69,9 +65,6 @@ export class CartState {
                 cartItems: [...getState().cartItems, item]
             });
         }
-
-        console.log('cartItems :: ', cartItems);
-
     }
 
     // reset to cart

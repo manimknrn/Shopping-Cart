@@ -1,7 +1,8 @@
-import { Component } from "@angular/core";
 import { BnNgIdleService } from "bn-ng-idle";
+import { Component } from "@angular/core";
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from "@angular/router";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-root",
@@ -10,21 +11,27 @@ import { Router } from "@angular/router";
 })
 export class AppComponent {
   title: any = 'Shopping Cart';
+  public subscriptions = new Subscription();
   constructor(private bnIdle: BnNgIdleService, public dialog: MatDialog) {
     this.sessionWatching();
   }
 
   sessionWatching() {
+    this.subscriptions.add(
     this.bnIdle.startWatching(300).subscribe((res) => {
       if (res) {
         this.openDialog();
       }
-    })
+    }))
   }
 
   openDialog() {
     this.bnIdle.stopTimer();
     this.dialog.open(Dialog);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 }
 

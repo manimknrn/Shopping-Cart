@@ -17,8 +17,6 @@ export class CartSelector {
     @Selector([ProductState])
     static cartItems(state: CartStateModel, productState: ProductStateModel) {
         const { cartItems } = state;
-        console.log('cartItems :: ', cartItems);
-        
         const products = productState.products;
         return joinItems(cartItems, products);
     }
