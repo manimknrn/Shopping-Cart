@@ -75,3 +75,28 @@ td.mat-footer-cell:last-of-type {
     text-align: center;
     width: 38px;
   }
+
+  .coupon-button {
+    float: right;
+    padding: 4px 16px;
+    color: #ff3f6c;
+    border: 1px solid #ff3f6c;
+    border-radius: 3px;
+    text-transform: none;
+    cursor: pointer;
+    font-weight: 600;
+    background: #fff;
+    font-size: 12px;
+  }
+
+  .coupon-text {
+    float: right;
+    padding: 4px 16px;
+    color: #ff3f6c;
+    border: 1px solid #756b6e;
+    border-radius: 3px;
+    text-transform: none;
+    font-weight: 600;
+    background: #fff;
+    font-size: 12px;
+  }

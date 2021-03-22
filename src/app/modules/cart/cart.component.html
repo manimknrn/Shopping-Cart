@@ -7,7 +7,11 @@
         <mat-card-title>
             Shopping Cart
         </mat-card-title>
-    </mat-card-header>
+    </mat-card-header> <br />
+    <div>
+        <button name="Apply" class="coupon-button" (click)="applyCoupon()">Apply</button> &nbsp;
+        <input #myInput placeholder="Enter Coupon Code" class="coupon-text" type="text" id="coupon" value="" />&nbsp;
+    </div>
     <mat-card-content>
         <div id="content">
             <div id="left">
@@ -36,22 +40,32 @@
                         <td mat-cell *matCellDef="let element"> {{element.name}} </td>
                         <td mat-footer-cell *matFooterCellDef> </td>
                     </ng-container>
-                    
+
                     <ng-container matColumnDef="price">
                         <th mat-header-cell *matHeaderCellDef> Price </th>
                         <td mat-cell *matCellDef="let element"> {{element.price | currency}} </td>
-                        <td mat-footer-cell *matFooterCellDef> Total </td>
+                        <td mat-footer-cell *matFooterCellDef> Total <br />
+                            Discount <br />
+                            Final Total
+                        </td>
                     </ng-container>
 
                     <ng-container matColumnDef="subTotal">
-                        <th mat-header-cell *matHeaderCellDef> Sub Total </th>
-                        <td mat-cell *matCellDef="let element"> {{(element.quantity * element.price) | currency}} </td>
-                        <td mat-footer-cell *matFooterCellDef> {{total$ | async | currency }} </td>
+                        <th mat-header-cell *matHeaderCellDef style="text-align: right;"> Sub Total </th>
+                        <td mat-cell *matCellDef="let element" style="text-align: right;"> {{(element.quantity *
+                            element.price) | currency}} </td>
+                        <td mat-footer-cell *matFooterCellDef style="text-align: right;">
+                            {{total$ | async | currency }} <br />
+                            {{coupon | currency}}
+                            <br />
+                            {{totalPrice | currency}}
+                        </td>
                     </ng-container>
 
                     <ng-container matColumnDef="remove">
                         <th mat-header-cell *matHeaderCellDef> </th>
-                        <td mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
+                        <td mat-cell *matCellDef="let element" (click)="$event.stopPropagation()"
+                            style="text-align: right;">
                             <mat-icon style="cursor: pointer !important;" (click)="onDelete(element)">delete</mat-icon>
                         </td>
                         <td mat-footer-cell *matFooterCellDef> </td>
@@ -68,9 +82,5 @@
         </div>
     </mat-card-content>
 </mat-card>
-<mat-card style="text-align: center;" class="price-card" *ngIf="!isCart">
-    <h3><b>Oh ho! Your Basket is empty!!</b></h3><br />
-    <img style="width: 50vw; height: 50vh;" src="/assets/empty_cart.svg" alt="Shopping images"><br />
-    <a style="text-decoration: none;" [routerLink]="'../product'" routerLinkActive="active">Click me to continue
-        shopping..</a>
-</mat-card>
+
+<app-empty-page *ngIf="!isCart" [message]="cartEmptyMessage"></app-empty-page>

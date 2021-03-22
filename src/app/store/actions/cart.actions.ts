@@ -18,4 +18,10 @@ export class RemoveCartItems {
   }
 }
 
-export type CartActions = AddProductToCart | UpdateCartItems | RemoveCartItems;
+export class ResetCartItems {
+  static type = "[Cart] Reset Cart Items";
+  constructor() {
+  }
+}
+
+export type CartActions = AddProductToCart | UpdateCartItems | RemoveCartItems | ResetCartItems;

@@ -29,4 +29,13 @@ export class AddressState {
             });
         }
 
+        @Action(addressActions.ResetAddress)
+        resetAddress (
+            { patchState }: any
+        ) {
+            patchState({
+                address: []
+            });
+        }
+
 }

@@ -1,5 +1,5 @@
 <app-header></app-header>
-<mat-card class="example-card">
+<mat-card class="example-card" *ngIf="isCart">
     <mat-card-header>
         <div mat-card-avatar class="example-header-image">
             <mat-icon>receipt</mat-icon>
@@ -12,7 +12,7 @@
     <mat-card-content>
         <div id="content">
             <div id="left">
-                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="isCart">
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
                     <ng-container matColumnDef="image_url">
                         <th mat-header-cell *matHeaderCellDef> ORDER PLACED <br />{{date | date: 'dd-MMMM-yyyy'}} </th>
                         <td mat-cell *matCellDef="let element">
@@ -20,11 +20,13 @@
                         </td>
                         <td mat-footer-cell *matFooterCellDef>
                             SHIP TO
-                            <span style="font-size: 11px; display: table-caption; text-transform: uppercase;">{{address}}</span>
+                            <span
+                                style="font-size: 11px; display: table-caption; text-transform: uppercase;">{{address}}</span>
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="name">
-                        <th mat-header-cell *matHeaderCellDef> TOTAL <br />{{total$ | async | currency }} </th>
+                        <th mat-header-cell *matHeaderCellDef> TOTAL <br />{{finalTotal$ | async
+                            | currency }} </th>
                         <td mat-cell *matCellDef="let element">{{element.name}}</td>
                         <td mat-footer-cell *matFooterCellDef> </td>
                     </ng-container>
@@ -39,3 +41,5 @@
         </div>
     </mat-card-content>
 </mat-card>
+
+<app-empty-page *ngIf="!isCart" [message]="orderEmptyMessage"></app-empty-page>

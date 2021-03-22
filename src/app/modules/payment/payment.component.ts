@@ -1,7 +1,10 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ProductState, ResetCartItems } from 'src/app/store/actions';
 
+import { CartState } from 'src/app/store/states/cart.state';
+import { CloneOrderList } from 'src/app/store/actions/order.actions';
 import { CrossErrorStateMatcher } from '../address/address.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PaymentService } from './services/payment.services';
@@ -71,7 +74,9 @@ export class PaymentComponent implements OnInit {
     this._snackBar.open('Order Successfully placed!!!', 'Thank you!', {
       duration: 4000
     });
-    // this.store.dispatch(new StateResetAll());
+    this.store.dispatch(new CloneOrderList(this.store.snapshot()));
+    this.store.dispatch(new ResetCartItems());
+    console.log(this.store.snapshot());
     this.paymentService.orderPlaced$.next(true);
     setTimeout(() => {
       this.router.navigate(['../home']);
@@ -112,3 +117,7 @@ export class PaymentComponent implements OnInit {
   }
 
 }
+function CartStateModel(CartStateModel: any) {
+  throw new Error('Function not implemented.');
+}
+

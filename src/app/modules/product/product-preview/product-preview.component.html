@@ -15,9 +15,8 @@
                 <br /> <br />
                 <span class="qty">Qty:</span>
                 <button (click)="decrement(previewValues.id, previewValues.quantity)">-</button>
-                <input type="text" min="0" max="100" step="1" matInput class="quantity"
-                    [(ngModel)]="quantity"> 
-                    <button (click)="increment(previewValues.id, previewValues.quantity)">+</button><br /><br />
+                <input type="text" min="0" max="100" step="1" matInput class="quantity" [(ngModel)]="quantity">
+                <button (click)="increment(previewValues.id, previewValues.quantity)">+</button><br /><br />
             </div>
         </div>
         <ng-template #loadingMessage>
@@ -25,3 +24,5 @@
         </ng-template>
     </mat-card-content>
 </mat-card>
+
+<app-empty-page *ngIf="!previewValues" [message]="previewEmptyMessage"></app-empty-page>

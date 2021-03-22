@@ -1,8 +1,13 @@
 export class AddAddress {
     static type = "[Adress] Add Adress";
     constructor(public readonly payload: []) {
-
     }
 }
 
-export type AddressActions = AddAddress;
+export class ResetAddress {
+    static type = "[Adress] Reset Adress";
+    constructor() {
+    }
+}
+
+export type AddressActions = AddAddress | ResetAddress;

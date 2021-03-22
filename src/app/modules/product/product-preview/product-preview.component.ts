@@ -15,6 +15,7 @@ import { Store } from '@ngxs/store';
 export class ProductPreviewComponent implements OnInit {
   public previewValues!: any;
   public quantity: number = 1;
+  previewEmptyMessage: string = 'Oh ho! Your Product Preview is empty!!';
 
   constructor(readonly cartService: CartService,private route: ActivatedRoute, private _snackBar: MatSnackBar, private store: Store, readonly productService: ProductsService) {
   }

@@ -1,7 +1,8 @@
-import { Injectable } from "@angular/core";
-import { Selector, State } from "@ngxs/store";
-import { CartStateModel } from "../states/cart.state";
+import { CartState, CartStateModel } from "../states/cart.state";
 import { ProductState, ProductStateModel } from "../states/product.state";
+import { Selector, State } from "@ngxs/store";
+
+import { Injectable } from "@angular/core";
 
 @State<CartStateModel>({
     name: "cart",
@@ -16,6 +17,8 @@ export class CartSelector {
     @Selector([ProductState])
     static cartItems(state: CartStateModel, productState: ProductStateModel) {
         const { cartItems } = state;
+        console.log('cartItems :: ', cartItems);
+        
         const products = productState.products;
         return joinItems(cartItems, products);
     }

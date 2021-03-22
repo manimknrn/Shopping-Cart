@@ -1,6 +1,8 @@
+import * as cartActions from "../actions/cart.actions";
+
 import { Action, State } from "@ngxs/store";
 import { CartItem, createCartItem, updateCartItem } from "../../modules/cart/models/cart.model";
-import * as cartActions from "../actions/cart.actions";
+
 import { Injectable } from "@angular/core";
 
 export interface CartStateModel {
@@ -40,6 +42,8 @@ export class CartState {
         const cartItems = getState().cartItems;
         const findIndex = cartItems.findIndex((c: any) => payload === c.productId);
         if (findIndex > -1) {
+            console.log('iffffffffffffff');
+
             return patchState({
                 cartItems: cartItems.map((cartdata: any, index: any) => {
                     if (index !== findIndex) {
@@ -47,21 +51,37 @@ export class CartState {
                     }
                     return {
                         ...cartdata,
-                        quantity: qty
-                        // quantity: cartdata.quantity + 1
+                        // quantity: qty
+                        quantity: cartdata.quantity + 1
                     };
                 })
             });
+        } else {
+            console.log('elseeeeeeeeeeeeeeeeee');
+
+            const item = createCartItem({
+                productId: payload
+            }, {
+                qty: qty
+            });
+
+            patchState({
+                cartItems: [...getState().cartItems, item]
+            });
         }
 
-        const item = createCartItem({
-            productId: payload
-        }, {
-            qty: qty
-        });
+        console.log('cartItems :: ', cartItems);
 
+    }
+
+    // reset to cart
+    @Action(cartActions.ResetCartItems)
+    resetProductToCart(
+        { patchState }: any
+    ) {
         patchState({
-            cartItems: [...getState().cartItems, item]
+            cartItems: []
         });
     }
+
 }

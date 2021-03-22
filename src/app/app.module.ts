@@ -45,6 +45,7 @@ import { BnNgIdleService } from 'bn-ng-idle';
 import { ConfirmDialogComponent } from './util/confirm-dialog/confirm-dialog.component';
 import { OrderComponent } from './modules/order/order.component';
 import { PaymentService } from './modules/payment/services/payment.services';
+import { EmptyPageComponent } from './util/empty-page/empty-page.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { PaymentService } from './modules/payment/services/payment.services';
     PaymentComponent,
     LoginComponent,
     ConfirmDialogComponent,
-    OrderComponent
+    OrderComponent,
+    EmptyPageComponent
   ],
   imports: [
     BrowserModule,
