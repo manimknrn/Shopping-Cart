@@ -19,13 +19,3 @@ export function createCartItem(params: Partial<CartItem>, qty: any) {
     ...params
   } as CartItem;
 }
-
-// export function updateCartItem(params: Partial<CartItem>, qty: any) {
-//   const quant = qty;
-
-//   return {
-//     total: 0,
-//     quantity: quant.qty,
-//     ...params
-//   } as CartItem;
-// }

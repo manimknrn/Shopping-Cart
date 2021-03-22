@@ -49,7 +49,6 @@ export class CartState {
                     }
                     return {
                         ...cartdata,
-                        // quantity: qty
                         quantity: cartdata.quantity + qty
                     };
                 })
@@ -67,7 +66,7 @@ export class CartState {
         }
     }
 
-    // add to cart
+    // update cart - Cart Page
     @Action(cartActions.UpdateCartItems)
     updateProductToCart(
         { getState, patchState }: any,
@@ -84,7 +83,6 @@ export class CartState {
                     if (increment) {
                         return {
                             ...cartdata,
-                            // quantity: qty 
                             quantity: cartdata.quantity + 1
                         };
                     }
@@ -92,7 +90,6 @@ export class CartState {
                     if (decrement) {
                         return {
                             ...cartdata,
-                            // quantity: qty 
                             quantity: cartdata.quantity - 1
                         };
                     }
