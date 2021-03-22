@@ -14,15 +14,18 @@
                 <span style="font-size: 16px; font-weight: 700;">Price: {{previewValues.price | currency }}</span>
                 <br /> <br />
                 <span class="qty">Qty:</span>
-                <button (click)="decrement(previewValues.id, previewValues.quantity)">-</button>
-                <input type="text" min="0" max="100" step="1" matInput class="quantity" [(ngModel)]="quantity">
-                <button (click)="increment(previewValues.id, previewValues.quantity)">+</button><br /><br />
+                <!-- <button (click)="decrement(previewValues.id, previewValues.quantity)">-</button> -->
+                <input type="number" min="0" max="100" step="1" matInput class="quantity" [(ngModel)]="quantity"> <br /><br />
+                <button mat-button class="button" (click)="addToCart(previewValues.id, previewValues.quantity)">Add to Cart</button>
+                <!-- <button (click)="increment(previewValues.id, previewValues.quantity)">+</button><br /><br /> -->
             </div>
         </div>
         <ng-template #loadingMessage>
             <div>Loading products...</div>
         </ng-template>
     </mat-card-content>
+    <mat-card-actions style="text-align: center;">
+    </mat-card-actions>
 </mat-card>
 
 <app-empty-page *ngIf="!previewValues" [message]="previewEmptyMessage"></app-empty-page>

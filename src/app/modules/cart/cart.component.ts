@@ -1,4 +1,4 @@
-import { AddProductToCart, RemoveCartItems } from '../../store/actions/cart.actions';
+import { AddProductToCart, RemoveCartItems, UpdateCartItems } from '../../store/actions/cart.actions';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ConfirmDialogComponent, ConfirmDialogModel } from 'src/app/util/confirm-dialog/confirm-dialog.component';
 import { Observable, Subscription } from 'rxjs';
@@ -92,7 +92,7 @@ export class CartComponent implements OnInit {
 
   increment(quantity: any, i: number) {
     let num: number = quantity + 1;
-    this.store.dispatch(new AddProductToCart(this.dataSource[i].productId, num))
+    this.store.dispatch(new UpdateCartItems(this.dataSource[i].productId, num, true, false))
     this.dataSource[i].quantity = num;
     this.coupon = 0;
     this.myInput.nativeElement.value = 0;
@@ -106,7 +106,7 @@ export class CartComponent implements OnInit {
   decrement(quantity: any, i: number) {
     if (quantity !== 1) {
       let num: number = quantity - 1;
-      this.store.dispatch(new AddProductToCart(this.dataSource[i].productId, num));
+      this.store.dispatch(new UpdateCartItems(this.dataSource[i].productId, num, false, true));
       this.dataSource[i].quantity = num;
       this.coupon = 0;
       this.myInput.nativeElement.value = 0;

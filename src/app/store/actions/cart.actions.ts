@@ -8,7 +8,7 @@ export class AddProductToCart {
 
 export class UpdateCartItems {
   static type = "[Cart] Update Cart Items";
-  constructor(public readonly payload: Product["id"], public readonly qty: number) {
+  constructor(public readonly payload: Product["id"], public readonly qty: number, public readonly increment: boolean, public readonly decrement: boolean) {
   }
 }
 

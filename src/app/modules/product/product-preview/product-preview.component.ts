@@ -43,6 +43,13 @@ export class ProductPreviewComponent implements OnInit {
     }
   }
 
+  addToCart(id: number, qty: number) {
+    if (this.quantity !== 0) {
+      let num: number = this.quantity;
+      this.store.dispatch(new AddProductToCart(id, num));
+    }
+  }
+
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }
